@@ -1,10 +1,10 @@
 import { Router } from "express";
+import { protectedRoute } from "../middlwere/auth.middlwere.js";
+import { getAllUsers } from "../controller/user.controller.js";
 
 const router = Router();    
 
-router.get("/", (req, res) => {
-    // Logic to get user profile
-    res.send("User profile");
-});
+router.get("/",protectedRoute, getAllUsers);
+
 
 export default router;

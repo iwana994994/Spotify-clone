@@ -4,6 +4,7 @@ import { connectDB } from './lib/db.js'
 import { clerkMiddleware } from '@clerk/express'
 import path from 'path'
 import fileUploads from 'express-fileupload'
+import cors from 'cors'
 
 
 import authRouter from './routes/auth.routes.js'
@@ -17,6 +18,12 @@ const app = express()
 const PORT =process.env.PORT
 const __dirname = path.resolve()
 
+app.use(cors({
+  origin: "http://localhost:3000", // Adjust the origin as needed
+  
+  credentials: true, // Allow credentials if needed
+ 
+}))
 
 app.use(express.json())
 app.use(clerkMiddleware())

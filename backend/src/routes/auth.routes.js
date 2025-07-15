@@ -3,6 +3,6 @@ import { authCollback } from "../controller/auth.controller.js";
 
 const router = Router();
 
-router.post("/collback",authCollback)
+router.post("/callback",authCollback)
 
 export default router;
