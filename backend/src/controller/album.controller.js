@@ -1,4 +1,4 @@
-import { Album } from "../models/album.model.js"; // Adjust the import based on your project structure
+import  Album  from "../models/album.model.js"; // Adjust the import based on your project structure
 export const getAlbums = async(req, res) => {
 
     try {

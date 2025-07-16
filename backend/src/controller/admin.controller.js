@@ -1,5 +1,5 @@
 import  Song  from "../models/song.model.js";
-import { Album } from "../models/album.model.js";
+import  Album  from "../models/album.model.js";
 export const createSong = async (req, res) => {
 
 const uploadCloudinaru = async (file) => {
