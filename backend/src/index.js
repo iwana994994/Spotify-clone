@@ -11,7 +11,7 @@ import authRouter from './routes/auth.routes.js'
 import userRouter from './routes/user.routes.js'
 import adminRouter from './routes/admin.routes.js'
 import songsRouter from './routes/songs.routers.js'
-import albumsRouter from './routes/albun.routes.js'
+import albumsRouter from './routes/album.routes.js'
 
 dotenv.config()
 const app = express()
@@ -36,7 +36,7 @@ app.use(fileUploads({
 
 
 app.use("/api/auth",authRouter)
-app.use("/api/user",userRouter)
+app.use("/api/users",userRouter)
 app.use("/api/admin",adminRouter)
 app.use("/api/songs",songsRouter)
 app.use("/api/albums",albumsRouter)

@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom"
-import HomePage from "./pages/home/homePage.tsx"
+import HomePage from "./pages/HomePage.tsx"
 import AuthCallbackPage from "./pages/AuthCallbackPage.tsx"
 import { AuthenticateWithRedirectCallback } from "@clerk/clerk-react"
 import MainLayout from "./layout/MainLayout.tsx"
