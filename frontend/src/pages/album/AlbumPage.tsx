@@ -3,11 +3,14 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { Button } from "@/components/ui/button"
-import { Clock, Play } from "lucide-react"
+import { Clock, Pause, Play } from "lucide-react"
+import { usePlayerStore } from "@/store/usePlayerStore"
   
 
 
 const AlbumPage = () => {
+
+  const {playAlbum,togglePlay,currentSong,isPlaying} = usePlayerStore()
     
     const {id}=useParams()
   const {fetchAlbumById,currentAlbum} =  useMusicStore()
@@ -21,6 +24,26 @@ const AlbumPage = () => {
     }
   }
 }, [id, fetchAlbumById])
+ const handlePlaySong = (index:number) => {
+  if(!currentAlbum) return
+   playAlbum(currentAlbum?.songs,index)
+  if(isPlaying) togglePlay()
+
+ }
+
+ const playAlbumButton=()=>{
+  if(!currentAlbum) return
+ const isCurrentAlbumPlaying= currentAlbum?.songs.some(song => song._id === currentSong?._id)
+ if(isCurrentAlbumPlaying){
+  togglePlay()
+ }
+ else{
+  playAlbum(currentAlbum?.songs,0)
+ }
+ }
+
+
+
 
   return (
     <div className="h-full w-full">
@@ -39,8 +62,10 @@ const AlbumPage = () => {
       </div>
       {/*controles button*/}
   	<div className="flex justify-start  mt-4 ml-5" >
-        <Button  size="icon" className="z-10 w-14 h-14  rounded-full bg-white hover:bg-green-400 flex items-center justify-center">
-            <Play className="w-10 h-10" />
+        <Button onClick={playAlbumButton} size="icon" className="z-10 w-14 h-14  rounded-full bg-green-500 hover:bg-green-400 flex items-center justify-center">
+           {isPlaying && currentAlbum?.songs.some(song => song._id === currentSong?._id)
+           ?<Pause className="w-10 h-10 text-black"/>
+           :<Play className="w-10 h-10 text-black"/>  }
         </Button>
 
     </div>
@@ -56,9 +81,11 @@ const AlbumPage = () => {
 
 <div className='px-6 z-10'>
   <div className='space-y-2 py-4 z-10'>
-    {currentAlbum?.songs.map((song, index) => (
+    {currentAlbum?.songs.map((song, index) => {
+      return(
       <div
         key={song._id}
+        onClick={() => handlePlaySong(index)}
         className="z-20 grid grid-cols-[16px_2fr_2fr_1fr]  text-sm text-zinc-400 hover:bg-zinc-200 rounded-md cursor-pointer"
       >
         <div className=" z-10 flex items-center justify-center">{index + 1}</div>
@@ -69,7 +96,8 @@ const AlbumPage = () => {
         <div className="flex z-10">{song.createdAt.split("T")[0]}</div>
         <div className="flex z-10">{song.duration}</div>
       </div>
-    ))}
+   )
+    })}
   </div>
 </div>
 	
