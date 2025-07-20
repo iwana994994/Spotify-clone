@@ -15,8 +15,8 @@ imageUrl:string,
 artist:string,
 releaseYear:number,
 songs:Song[],
-createdAt:Date,
-updatedAt:Date
+createdAt:string,
+updatedAt:string
 
 
 }

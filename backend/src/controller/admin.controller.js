@@ -55,26 +55,30 @@ if(albumId){
 
 }
 export const deleteSong = async (req, res) => {
-    try {
+  try {
     const { id } = req.params;
 
     const song = await Song.findById(id);
-    
-     
-        // If the song is part of an album, remove it from the album's songs array
-        if (song.albumId) {
-            await Album.findByIdAndUpdate(song.albumId, {
-                $pull: { songs: song._id }
-            });
-        }
-        song = await Song.findByIdAndDelete(id);
-
-        res.status(200).json({ message: "Song deleted successfully" });
-    } catch (error) {
-        console.error("Error deleting song:", error);
-        res.status(500).json({ message: "Internal server error" });
+    if (!song) {
+      return res.status(404).json({ message: "Song not found" });
     }
-}
+
+    // If the song is part of an album, remove it from the album's songs array
+    if (song.albumId) {
+      await Album.findByIdAndUpdate(song.albumId, {
+        $pull: { songs: song._id }
+      });
+    }
+
+    await Song.findByIdAndDelete(id);
+
+    res.status(200).json({ message: "Song deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting song:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export const createAlbum = async (req, res) => {
     try {
         const { title, artist, releaseDate } = req.body;
@@ -113,5 +117,11 @@ export const deleteAlbum = async (req, res) => {
     }
 }
 export const checkAdmin = (req, res) => {
-    res.status(200).json({ message: "You are an admin" });
+
+    if(    res.status(200).json({ admin:true })
+    );
+else{
+    console.log("in admin.controller is in error");
+}
+    
 }

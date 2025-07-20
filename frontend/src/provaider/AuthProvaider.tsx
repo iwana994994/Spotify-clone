@@ -1,10 +1,11 @@
 import { axiosInstance } from "@/lib/axios";
+import { useAuthStore } from "@/store/useAuthStore";
 
 import { useAuth } from "@clerk/clerk-react";
 
 import { Loader } from "lucide-react";
 
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const updateApiToken = async (token:string |null) => {
@@ -19,6 +20,7 @@ const updateApiToken = async (token:string |null) => {
 const AuthProvaider = ({children}:{children:React.ReactNode}) => {
     const {getToken}=useAuth();
     const [loading, setloading] = useState(true)
+    const {checkAdmin}=useAuthStore();
   
 
     useEffect(() => {
@@ -27,7 +29,9 @@ const AuthProvaider = ({children}:{children:React.ReactNode}) => {
         try {
             const token = await getToken();
             await updateApiToken(token);
-           
+            	if (token) {
+					await checkAdmin();
+                }
            console.log("Auth initialized successfully!");
     }
       
@@ -40,7 +44,7 @@ const AuthProvaider = ({children}:{children:React.ReactNode}) => {
         }
 };
   inithAuth();   
-    }, [getToken]);
+    }, [getToken, checkAdmin]);
 if(loading){
     return (
     <div className="flex items-center justify-center h-screen">

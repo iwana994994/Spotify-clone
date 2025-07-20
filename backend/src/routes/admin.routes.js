@@ -4,7 +4,7 @@ import { createSong, deleteSong,createAlbum,deleteAlbum,checkAdmin } from "../co
 const router = Router();
 router.use(protectedRoute, requireAdmin);
 
-router.get("/chectAdmin", checkAdmin);
+router.get("/checkAdmin", checkAdmin);
 
 router.post("/songs", createSong);
 router.delete("/songs/:id",deleteSong);
