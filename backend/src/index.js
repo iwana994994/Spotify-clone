@@ -7,7 +7,7 @@ import fileUploads from 'express-fileupload'
 import cors from 'cors'
 import { createServer } from 'http'
 import { initializeSockets } from './lib/socket.js'
-import cron from 'node-cron '
+
 import fs from 'fs'
 
 
@@ -43,27 +43,7 @@ app.use(fileUploads({
 }))
 
 //cron jobs
-const tmpDir=path.join(process.cwd(),"tmp")
-cron.schedule('0 * * * *', () => {
-  if(fs.existsSync(tmpDir)){
-    fs.readdir(tmpDir , (err, files) => {
-      if (err) {
-        console.error('Error reading directory:', err);
-        return;
-      }
-      for (const file of files) {
-        fs.unlink(path.join(tmpDir, file), (err) => {});
-      }
-     
-  }
-  )
-}
-})
 
-  
-  if(!fs.existsSync(tmpDir)){
-    fs.mkdirSync(tmpDir)
-  }
 
 app.use("/api/auth",authRouter)
 app.use("/api/users",userRouter)
