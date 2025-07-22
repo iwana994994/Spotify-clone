@@ -1,9 +1,11 @@
 import { axiosInstance } from "@/lib/axios";
 import { useAuthStore } from "@/store/useAuthStore";
+import useChatStore from "@/store/useChatStore";
 
 import { useAuth } from "@clerk/clerk-react";
 
 import { Loader } from "lucide-react";
+
 
 import { useEffect, useState } from "react";
 
@@ -18,9 +20,10 @@ const updateApiToken = async (token:string |null) => {
     
 }
 const AuthProvaider = ({children}:{children:React.ReactNode}) => {
-    const {getToken}=useAuth();
+    const {getToken,userId}=useAuth();
     const [loading, setloading] = useState(true)
     const {checkAdmin}=useAuthStore();
+    const {initSocket,disconnectSocket}=useChatStore();
   
 
     useEffect(() => {
@@ -31,6 +34,8 @@ const AuthProvaider = ({children}:{children:React.ReactNode}) => {
             await updateApiToken(token);
             	if (token) {
 					await checkAdmin();
+                   if(userId)
+                   {initSocket(userId)}
                 }
            console.log("Auth initialized successfully!");
     }
@@ -44,7 +49,8 @@ const AuthProvaider = ({children}:{children:React.ReactNode}) => {
         }
 };
   inithAuth();   
-    }, [getToken, checkAdmin]);
+  return (disconnectSocket); 
+    }, [getToken, checkAdmin,disconnectSocket,initSocket,userId]);
 if(loading){
     return (
     <div className="flex items-center justify-center h-screen">

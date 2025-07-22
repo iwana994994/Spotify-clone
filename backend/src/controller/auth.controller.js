@@ -4,11 +4,15 @@ export const authCollback=async (req, res) =>
  console.log("📥 Primljen user od frontenda:", req.body);
 
     const{id,firstName,lastName,imageUrl} = req.body
+    console.log("📥 Primljen user od frontenda:", req.body.id);
+    
+  
     try {
-       const user = await User.findOne({clerkId: id})
+       let user = await User.findOne({clerkId: id})
         if(!user){
             user = await User.create({
-                clerkId: id,
+               clerkId: id, // ➕ DODAJ OVO!
+               
                 imageUrl: imageUrl,
                 fullname: `${firstName} ${lastName}`,
                 
@@ -18,7 +22,9 @@ export const authCollback=async (req, res) =>
         res.status(200).json({success:true})
          
     } catch (error) {
-        console.error(error)
-        res.status(500).json({message: "Internal Server Error"})
-    }
+    console.error("❌ Greška pri čuvanju korisnika:", error.message);
+      console.error(error.stack);
+      
+    res.status(500).json({ message: "Internal Server Error" });
+}
 } 

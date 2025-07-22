@@ -1,14 +1,14 @@
 import { clerkClient } from "@clerk/express";
 
 export const protectedRoute = (req, res, next) => {
-    if (!req.auth || !req.auth.userId) {
+    if (!req.auth.userId) {
         return res.status(401).json({ message: "Unauthorized" });
     }
     next(); // nastavi ako je korisnik autentifikovan
 }
 export const requireAdmin = async (req, res, next) => {
     try {
-        const userId = req.auth?.userId; // 👈 uzmi userId iz req.auth
+        const userId = req.auth.userId; // 👈 uzmi userId iz req.auth
         if (!userId) {
             return res.status(401).json({ message: "Unauthorized" });
         }

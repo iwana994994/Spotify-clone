@@ -25,7 +25,7 @@ const FriendsActivity = () => {
       <ScrollArea className="px-5 pb-5">
         <div className="flex flex-col gap-y-2">
           {users.length > 0 ? (
-            users.map((user:any) => (
+            users.map((user) => (
               <div
                 key={user._id}
                 className="flex items-center p-4 rounded-lg bg-zinc-700"

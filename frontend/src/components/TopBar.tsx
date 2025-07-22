@@ -11,7 +11,7 @@ const TopBar = () => {
 
         <div className="flex justify-between items-center sticky top-0 backdrop-blur-md  text-white p-4">
             <div className="flex items-center text-2xl font-bold gap-2 ">
-                <img src="../../../../public/spotify-cat-logo-512x512.png" alt="Logo" className="w-10 h-10 ml-2" />
+                <img src="../../../../spotify-cat-logo-512x512.png" alt="Logo" className="w-10 h-10 ml-2" />
                <h1>Spotify</h1>
             </div>
             <div className="flex items-center ">

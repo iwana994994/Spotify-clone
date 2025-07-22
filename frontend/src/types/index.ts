@@ -26,3 +26,12 @@ fullname:string,
 imageUrl:string,
 clerkId:string
 }
+
+export interface Message  {
+   _id:number,
+    senderId:string,
+    receiverId:string,
+    message:string,
+    createdAt:string,
+    updatedAt:string
+  };
