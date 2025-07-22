@@ -11,7 +11,7 @@ import { initializeSockets } from './lib/socket.js'
 import authRouter from './routes/auth.routes.js'
 import userRouter from './routes/user.routes.js'
 import adminRouter from './routes/admin.routes.js'
-import songsRouter from './routes/songs.routers.js'
+import songsRouter from './routes/songs.routes.js'
 import albumsRouter from './routes/album.routes.js'
 
 
@@ -48,13 +48,20 @@ app.use("/api/admin",adminRouter)
 app.use("/api/songs",songsRouter)
 app.use("/api/albums",albumsRouter)
 
+
+
 if(process.env.NODE_ENV === "production"){
   app.use(express.static(path.join(__dirname, "..", "frontend", "build")))
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "frontend", "build", "index.html"))
+     console.log("Catch-all route triggered for URL:", req.url);
+    res.sendFile(path.join(__dirname, "../frontend/build/index.html"))
   })
 }
 
+app.use((req, res, next) => {
+  console.log(`Request method: ${req.method}, url: ${req.url}`);
+  next();
+});
 
 
 httpServer.listen(PORT, () => {
