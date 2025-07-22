@@ -8,9 +8,6 @@ import cors from 'cors'
 import { createServer } from 'http'
 import { initializeSockets } from './lib/socket.js'
 
-import fs from 'fs'
-
-
 import authRouter from './routes/auth.routes.js'
 import userRouter from './routes/user.routes.js'
 import adminRouter from './routes/admin.routes.js'

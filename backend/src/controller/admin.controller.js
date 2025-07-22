@@ -1,8 +1,9 @@
 import  Song  from "../models/song.model.js";
 import  Album  from "../models/album.model.js";
+import  cloudinary  from "../lib/cloudinary.js";
 export const createSong = async (req, res) => {
 
-const uploadCloudinaru = async (file) => {
+const uploadCloudinary = async (file) => {
 
     try {
   const resolt= await cloudinary.uploader.upload(file.path, {
@@ -24,8 +25,8 @@ const { title, duration, artist, albumId } = req.body;
 const{audiofile}  = req.file.audiofile;
 const {imagefile} = req.file.imagefile;
 
-const imageUrl= await uploadCloudinaru(imagefile)
-const audioUrl = await uploadCloudinaru(audiofile);
+const imageUrl= await uploadCloudinary(imagefile)
+const audioUrl = await uploadCloudinary(audiofile);
     
         const song = new Song({
         title,
@@ -83,12 +84,13 @@ export const createAlbum = async (req, res) => {
     try {
         const { title, artist, releaseDate } = req.body;
         const { imagefile } = req.file;
-        const imageUrl = await uploadCloudinaru(imagefile);
+        const imageUrl = await uploadCloudinary(imagefile);
 
         const album = new Album({
             title,
             artist,
             releaseDate,
+            imageUrl
         });
 
         await album.save();

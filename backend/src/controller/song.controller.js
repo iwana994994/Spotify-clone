@@ -5,6 +5,7 @@ export const getAllSongs= async(req, res) => {
         res.status(200).json(songs);
     }
     catch (error) {
+        console.error("Error fetching songs:", error);
         res.status(500).json({ message: "Error fetching songs" });
     }
 }
@@ -23,6 +24,8 @@ export const getFeaturedSongs = async(req, res) => {
 
     res.status(200).json(songs);}
     catch (error) {
+
+        console.error("Error fetching featured songs:", error);
         res.status(500).json({ message: "Error fetching featured songs" });
     }
 }
@@ -41,6 +44,7 @@ export const getMadeForYouSongs =async (req, res) => {
 
     res.status(200).json(songs);     }
     catch (error) {
+        console.log(error);
         res.status(500).json({ message: "Error fetching trending songs" });
     }      
 }
@@ -59,6 +63,7 @@ export const getTrendingSongs = async(req, res) => {
 
     res.status(200).json(songs);     }
     catch (error) {
+        console.log(error);
         res.status(500).json({ message: "Error fetching trending songs" });
     }      
 

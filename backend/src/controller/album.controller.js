@@ -6,6 +6,7 @@ export const getAlbums = async(req, res) => {
         res.status(200).json(albums);
     }
     catch (error) {
+        console.error("Error fetching albums:", error);
         res.status(500).json({ message: "Error fetching albums" });
     }
 
@@ -23,6 +24,7 @@ try{
 }
 
 catch (error) {
+    console.error("Error fetching album:", error);
     res.status(500).json({ message: "Error fetching album" }); 
 }
 }

@@ -13,8 +13,8 @@ export const initializeSockets = (server) => {
     const userActivities= new Map()
 
     io.on("listen-connection", (socket) => {
-        socket.on("connect", () => {
-        //  1. user Conected
+        socket.on("connect", (userId) => {
+        //  1. user Connected
         userSocket.set(userId,socket.id)
         userActivities("idle",userId)
        
