@@ -96,7 +96,7 @@ set({  isConneted: true });
     set({ isLoading: true, error: null });
   
     try {
-      const response = await axiosInstance.get(`/users/messages/:${userId}`);
+      const response = await axiosInstance.get(`/users/messages/${userId}`);
       set({ message: response.data });
     } catch (error) {
         console.log(error);
